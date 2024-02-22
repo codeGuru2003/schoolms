@@ -61,7 +61,7 @@ class ClassSubjectController extends Controller
             $classSubject->subject_id = $request->subject_id;
             $classSubject->save();
 
-            return Redirect::to('academicclasses.details')->with(['id'=>$classId,'msg' => 'Class subject update successfully']);
+            return Redirect::to('academicclasses/details/')->with(['id'=>$classId,'msg' => 'Class subject update successfully']);
 
         } catch (\Exception $ex) {
             return back()->with('error','Error updating class subjects' . $ex->getMessage());
