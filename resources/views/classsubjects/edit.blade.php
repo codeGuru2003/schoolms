@@ -22,7 +22,8 @@
                             <select name="faculty_id" id="faculty_id" required class="form-control">
                                 <option value="0">Select Teacher</option>
                                 @foreach($faculties as $faculty)
-                                    <option value="{{ $faculty->id }}">{{ $faculty->firstname }} {{ $faculty->middlename }} {{ $faculty->lastname }}</option>
+                                    <option value="{{ $faculty->id }}" {{ $classSubject->faculty_id == $faculty->id ? 'selected' : '' }}>
+                                        {{ $faculty->firstname }} {{ $faculty->middlename }} {{ $faculty->lastname }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -32,8 +33,8 @@
                               Is Active
                             </label>
                         </div>
-                        <button type="submit" class="btn btn-success">Add Subject</button>
                         <a href="{{ route('academicclasses.details', ['id' => $classId ]) }}" class="btn btn-primary">Back To Class Details</a>
+                        <button type="submit" class="btn btn-success">Update Class Subject</button>
                     </form>
                 </div>
             </div>
