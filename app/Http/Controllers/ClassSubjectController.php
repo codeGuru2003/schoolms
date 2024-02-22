@@ -52,5 +52,8 @@ class ClassSubjectController extends Controller
         ]);
     }
 
-
+    public function update($classId, $id, Request $request){
+        $classSubject = ClassSubject::find($id);
+        
+    }
 }
