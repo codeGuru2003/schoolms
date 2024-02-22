@@ -8,6 +8,7 @@ use App\Models\Subject;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
 
 class ClassSubjectController extends Controller
 {
@@ -53,7 +54,17 @@ class ClassSubjectController extends Controller
     }
 
     public function update($classId, $id, Request $request){
-        $classSubject = ClassSubject::find($id);
-        
+        try {
+
+            $classSubject = ClassSubject::find($id);
+            $classSubject->faculty_id = $request->faculty_id;
+            $classSubject->subject_id = $request->subject_id;
+            $classSubject->save();
+
+            return Redirect::to('academicclasses.details')->with(['id'=>$classId,'msg' => 'Class subject update successfully']);
+
+        } catch (\Exception $ex) {
+            return back()->with('error','Error updating class subjects' . $ex->getMessage());
+        }
     }
 }
