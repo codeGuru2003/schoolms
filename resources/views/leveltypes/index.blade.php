@@ -13,7 +13,7 @@
                             <i class="bi bi-pencil"> Add New Record</i>
                         </button>
                         <div class="table-responsive">
-                            <table class="table table-striped table-bordered datatable nowrap">
+                            <table class="table table-striped table-bordered nowrap" id="levelTable">
                                 <thead>
                                     <tr>
                                         <th>No.</th>
@@ -67,4 +67,11 @@
           </div>
         </div>
     </div>
+    <script>
+        $(document).ready(function(){
+            $('#levelTable').DataTable({
+
+            })
+        })
+    </script>
 @endsection

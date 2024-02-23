@@ -6,8 +6,9 @@
                 <div class="card">
                     <div class="card-header">Edit School</div>
                     <div class="card-body p-3">
-                        <form action="{{ route('schools.create') }}" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
-                          @csrf
+                        <form action="{{ route('schools.update', ['id' => $school->id ]) }}" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
+                            @method('PUT')
+                            @csrf
                           <div class="form-group mt-2">
                               <label for="logo" class="form-label">Logo</label>
                               <input type="file" value="{{ $school->logo }}" name="logo" required id="logo" class="form-control" />
@@ -30,7 +31,7 @@
                           </div>
                           <div class="form-group mt-4">
                             <input type="submit" class="btn btn-success" value="Update" />
-                            <a href="{{ route('schools.index') }}" class="btn btn-primary">Back to List</a>
+                            <a href="{{ route('schools.index') }}" class="btn btn-danger">Cancel</a>
                           </div>
                         </form>
                       </div>

@@ -7,10 +7,11 @@
                     <div class="card-header">Faculty Image</div>
                     <div class="card-body p-3 text-center">
                         <img src="{{ asset('storage/'. $user->image) }}" style="border-radius: 2%" alt="User Image" width="170" />
-                        <form action="" class="mt-3">
+                        <form action="{{ route('faculties.updateImage',['id' => $faculty->id ]) }}" class="mt-3" method="POST" enctype="multipart/form-data">
+                            @csrf
                             <div class="input-group">
-                                <input type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
-                                <button class="btn btn-outline-success" type="button" id="inputGroupFileAddon04">Upload</button>
+                                <input type="file" name="image" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
+                                <button class="btn btn-outline-success" type="submit" id="inputGroupFileAddon04">Upload</button>
                             </div>
                         </form>
                     </div>
@@ -161,12 +162,22 @@
                                         </select>
                                     </div>
                                 </div>
+                                <div class="col-md-3">
+                                    <div class="form-check mt-4">
+                                        <input class="form-check-input" type="checkbox" id="isactive" name="is_active" {{ $faculty->is_active ? 'checked' : '' }} style="width:20px; height: 20px">
+                                        <label class="form-check-label {{ $faculty->is_active ? 'text-success' : 'text-danger' }}" for="isactive">
+                                            <span style="font-size: 20px">
+                                            Is Active
+                                            </span>
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group mb-2">
-                                        <button class="btn btn-success">Update Record</button>
-                                        <a href="{{ route('faculties.index') }}" class="btn btn-primary">Back To List</a>
+                                        <button class="btn btn-success">Update</button>
+                                        <a href="{{ route('faculties.index') }}" class="btn btn-danger">Cancel</a>
                                     </div>
                                 </div>
                             </div>

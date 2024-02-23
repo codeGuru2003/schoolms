@@ -8,12 +8,12 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">List of Subjects</div>
-                    <div class="card-body p-3">
+                    <div class="card-body p-4">
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#subjectModal">
                             <i class="bi bi-pencil"> Add New Record</i>
                         </button>
                         <div class="table-responsive">
-                            <table class="table table-bordered table-striped datatable nowrap">
+                            <table class="table table-bordered table-striped nowrap" id="subjectsTable">
                                 <thead>
                                     <tr>
                                         <th>No.</th>
@@ -83,5 +83,12 @@
 
             return false;
         }
+    </script>
+    <script>
+        $(document).ready(function(){
+            $('#subjectsTable').DataTable({
+
+            })
+        })
     </script>
 @endsection

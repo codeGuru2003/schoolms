@@ -37,11 +37,12 @@
                             </div>
                         </form>
                     @else
-                        <form action="{{ route('globalsettings.create') }}" enctype="multipart/form-data" method="POST">
+                        <form action="{{ route('globalsettings.update', ['id' => $globalsetting->id ]) }}" enctype="multipart/form-data" method="POST">
+                            @method('PUT')
                             @csrf
                             <div class="form-group mt-3">
                                 <label for="system_logo" class="form-label">System Logo</label>
-                                <input type="file" name="system_logo" value="{{ $globalsetting->system_logo }}" id="system_logo" class="form-control">
+                                <input type="file" name="system_logo" value="{{ $globalsetting->system_logo }}" id="system_logo" class="form-control" required>
                             </div>
                             <div class="form-group mt-3">
                                 <label for="system_name" class="form-label">System Name</label>

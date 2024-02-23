@@ -13,7 +13,7 @@
                             <i class="bi bi-pencil"> Add New Record</i>
                         </button>
                         <div class="table-responsive">
-                            <table class="table table-striped table-bordered table-hover datatable">
+                            <table class="table table-striped table-bordered table-hover" id="schoolsTable">
                                 <thead>
                                     <tr>
                                         <th>No.</th>
@@ -83,4 +83,11 @@
           </div>
         </div>
     </div>
+    <script>
+        $(document).ready(function(){
+            $('#schoolsTable').DataTable({
+
+            })
+        })
+    </script>
 @endsection

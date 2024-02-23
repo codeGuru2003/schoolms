@@ -4,13 +4,16 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\CurrencyType;
 use App\Models\Gender;
 use App\Models\MaritalStatus;
+use App\Models\PaymentStatus;
 use App\Models\Position;
 use App\Models\Role;
 use App\Models\Subject;
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
@@ -173,34 +176,61 @@ class DatabaseSeeder extends Seeder
         //     'created_by' => 'SYSTEM',
         // ]);
 
-        Position::create([
-            'name' => 'Principal',
-            'created_by' => 'SYSTEM',
-        ]);
+        // Position::create([
+        //     'name' => 'Principal',
+        //     'created_by' => 'SYSTEM',
+        // ]);
 
-        Position::create([
-            'name' => 'Vice Principal',
-            'created_by' => 'SYSTEM',
-        ]);
+        // Position::create([
+        //     'name' => 'Vice Principal',
+        //     'created_by' => 'SYSTEM',
+        // ]);
 
-        Position::create([
-            'name' => 'Dean of Students',
-            'created_by' => 'SYSTEM',
-        ]);
+        // Position::create([
+        //     'name' => 'Dean of Students',
+        //     'created_by' => 'SYSTEM',
+        // ]);
 
-        Position::create([
-            'name' => 'Class Sponsor',
-            'created_by' => 'SYSTEM',
-        ]);
+        // Position::create([
+        //     'name' => 'Class Sponsor',
+        //     'created_by' => 'SYSTEM',
+        // ]);
 
-        Position::create([
-            'name' => 'Teacher',
-            'created_by' => 'SYSTEM',
-        ]);
+        // Position::create([
+        //     'name' => 'Teacher',
+        //     'created_by' => 'SYSTEM',
+        // ]);
 
-        Position::create([
-            'name' => 'N/A',
-            'created_by' => 'SYSTEM',
-        ]);
+        // Position::create([
+        //     'name' => 'N/A',
+        //     'created_by' => 'SYSTEM',
+        // ]);
+
+        // PaymentStatus::create([
+        //     'name' => 'Pending',
+        //     'created_by' => 'system'
+        // ]);
+
+        // PaymentStatus::create([
+        //     'name' => 'Partially paid',
+        //     'created_by' => 'system'
+        // ]);
+
+        // PaymentStatus::create([
+        //     'name' => 'Paid in full',
+        //     'created_by' => 'system'
+        // ]);
+
+        // CurrencyType::create([
+        //     'name' => 'United States Dollars',
+        //     'code' => 'USD',
+        //     'created_by' => 'system'
+        // ]);
+
+        // CurrencyType::create([
+        //     'name' => 'Liberian  Dollars',
+        //     'code' => 'LRD',
+        //     'created_by' => 'system'
+        // ]);
     }
 }

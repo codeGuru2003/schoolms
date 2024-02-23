@@ -29,11 +29,13 @@ class ClassSubjectController extends Controller
                 throw new Exception('Subject already assigned to this class.');
             }
 
+            $isActive = request()->has('is_active');
+
             ClassSubject::create([
                 'faculty_id' => $request->faculty_id,
                 'academic_class_id' => $classId,
                 'subject_id' => $request->subject_id,
-                'is_active' => false
+                'is_active' => $isActive,
             ]);
 
             return back()->with('msg', 'Class subject added successfully');
@@ -56,15 +58,26 @@ class ClassSubjectController extends Controller
     public function update($classId, $id, Request $request){
         try {
 
+            //$isActive = $request->input('is_active', false); // Use false as default if not checked
+            $isActive = request()->has('is_active');
+
             $classSubject = ClassSubject::find($id);
             $classSubject->faculty_id = $request->faculty_id;
             $classSubject->subject_id = $request->subject_id;
+            $classSubject->is_active = $isActive;
+            //$classSubject->is_active = $request->is_active;
             $classSubject->save();
 
-            return Redirect::to('academicclasses/details/')->with(['id'=>$classId,'msg' => 'Class subject update successfully']);
+            return Redirect::route('academicclasses.details',['id' => $classId])->with('msg','Class subject updated successfully');
 
         } catch (\Exception $ex) {
-            return back()->with('error','Error updating class subjects' . $ex->getMessage());
+            return back()->with('error','Error updating class subjects' . ' ' . $ex->getMessage());
         }
+    }
+
+    public function destroy($classId, $id){
+        $classSubject = ClassSubject::find($id);
+        $classSubject->delete();
+        return redirect::route('academicclasses.details',['id' => $classId])->with('msg','Class Subject deleted successfully');
     }
 }

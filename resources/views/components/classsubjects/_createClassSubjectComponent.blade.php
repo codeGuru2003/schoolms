@@ -19,9 +19,11 @@
         </select>
     </div>
     <div class="form-check mb-3">
-        <input class="form-check-input" type="checkbox" id="isactive" value="1">
-        <label class="form-check-label" for="isactive">
-          Is Active
+        <input class="form-check-input" type="checkbox" id="isactive" name="is_active" style="width:20px; height: 20px">
+        <label class="form-check-label " for="isactive">
+            <span style="font-size: 20px">
+            Is Active
+            </span>
         </label>
     </div>
     <button type="submit" class="btn btn-success">Add Subject</button>

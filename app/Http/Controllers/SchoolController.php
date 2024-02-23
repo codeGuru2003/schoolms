@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\School;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class SchoolController extends Controller
 {
@@ -30,7 +31,7 @@ class SchoolController extends Controller
         ]);
 
         $school->save();
-        return redirect('/schools')->with('msg', 'Record saved successfully.');
+        return redirect('/schools')->with('msg', 'School saved successfully.');
     }
 
     public function edit($id){
@@ -39,6 +40,22 @@ class SchoolController extends Controller
             'title' => 'Edit School',
             'school' => $school,
         ]);
+    }
+
+    public function update($id, Request $request){
+        $school = School::find($id);
+        Storage::disk('public')->delete($school->logo);
+
+        $newPath = $request->file('logo')->store('images','public');
+
+        $school->longname = $request->input('longname');
+        $school->code = $request->input('code');
+        $school->email = $request->input('email');
+        $school->contact = $request->input('contact');
+        $school->logo = $newPath;
+
+        $school->save();
+        return redirect('/schools')->with('msg','School updated successfully');
     }
 
     public function details($id){

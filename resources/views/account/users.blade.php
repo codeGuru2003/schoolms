@@ -10,10 +10,10 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">List of Users</div>
-                <div class="card-body p-3">
+                <div class="card-body p-4">
                     <a href="{{ route('account.register') }}" class="btn btn-primary mb-2"><i class="bi bi-pencil"> Add New Record</i></a>
                     <div class="table-responsive">
-                        <table class="table table-striped table-bordered datatable nowrap">
+                        <table class="table table-striped table-bordered nowrap" id="usersTable">
                             <thead>
                                 <tr>
                                     <th>No.</th>
@@ -44,4 +44,11 @@
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function(){
+        $('#usersTable').DataTable({
+
+        })
+    })
+</script>
 @endsection

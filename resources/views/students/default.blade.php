@@ -23,7 +23,7 @@
                                         <td>{{ $count }}</td>
                                         <td>{{ $school->longname }}</td>
                                         <td>
-                                            <a href="{{ route('students.index', ['schoolId' => $school->id ]) }}" class="btn btn-primary"><i class="bi bi-journal-text"></i></a>
+                                            <a href="{{ route('students.index', ['schoolId' => $school->id ]) }}" class="btn btn-primary"> Proceed <i class="bi bi-arrow-right"></i></a>
                                         </td>
                                     </tr>
                                     @php

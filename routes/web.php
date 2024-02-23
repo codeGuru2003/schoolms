@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AcademicClassController;
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\ClassBillController;
 use App\Http\Controllers\ClassSubjectController;
 use App\Http\Controllers\FacultyController;
 use App\Http\Controllers\GlobalSettingController;
@@ -32,26 +33,27 @@ use Illuminate\Support\Facades\Route;
 
 //Global Settings Routes
 Route::controller(GlobalSettingController::class)->group(function(){
-    Route::get('globalsettings','index')->name('globalsettings.index');
-    Route::post('globalsettings/create','create')->name('globalsettings.create');
+    Route::get('globalsettings','index')->name('globalsettings.index')->middleware('auth');
+    Route::post('globalsettings/create','create')->name('globalsettings.create')->middleware('auth');
+    Route::put('globalsettings/edit/{id}','update')->name('globalsettings.update')->middleware('auth');
 });
 
 //School Settings Routes
 Route::controller(SchoolController::class)->group(function(){
-    Route::get('schools','index')->name('schools.index');
-    Route::post('schools/create', 'create')->name('schools.create');
-    Route::get('schools/edit/{id}', 'edit')->name('schools.edit');
-    // Route::get('schools/edit/{id}', 'edit')->name('schools.edit');
-    Route::get('schools/details/{id}', 'details')->name('schools.details');
+    Route::get('schools','index')->name('schools.index')->middleware('auth');;
+    Route::post('schools/create', 'create')->name('schools.create')->middleware('auth');;
+    Route::get('schools/edit/{id}', 'edit')->name('schools.edit')->middleware('auth');;
+    Route::put('schools/edit/{id}', 'update')->name('schools.update')->middleware('auth');
+    Route::get('schools/details/{id}', 'details')->name('schools.details')->middleware('auth');;
 });
 
 
 //Roles Routes
 Route::controller(RoleController::class)->group(function(){
-    Route::get('roles','index')->name('roles.index');
-    Route::post('roles/create','create')->name('roles.create');
-    Route::get('roles/edit/{id}','edit')->name('roles.edit');
-    Route::get('roles/details/{id}','details')->name('roles.details');
+    Route::get('roles','index')->name('roles.index')->middleware('auth');;
+    Route::post('roles/create','create')->name('roles.create')->middleware('auth');;
+    Route::get('roles/edit/{id}','edit')->name('roles.edit')->middleware('auth');;
+    Route::get('roles/details/{id}','details')->name('roles.details')->middleware('auth');;
 });
 
 //Account Routes
@@ -59,11 +61,11 @@ Route::controller(AccountController::class)->group(function(){
     Route::get('account/users', 'users')->name('account.users')->middleware('auth');
     Route::get('account/register', 'register')->name('account.register')->middleware('auth');
     Route::get('account/users/{id}','edit')->name('account.edit')->middleware('auth');
-    Route::post('account/register','store')->name('account.store');
+    Route::post('account/register','store')->name('account.store')->middleware('auth');;
     Route::get('login', 'login')->name('login');
     Route::post('login','authenticate')->name('authenticate');
-    Route::post('/change-password', 'changePassword')->name('change.password');
-    Route::post('/update-profile', 'updateProfile')->name('update.profile');
+    Route::post('/change-password', 'changePassword')->name('change.password')->middleware('auth');;
+    Route::post('/update-profile', 'updateProfile')->name('update.profile')->middleware('auth');;
     Route::get('/logout', 'logout')->name('logout');
 });
 
@@ -76,18 +78,18 @@ Route::controller(HomeController::class)->group(function(){
 //Sections Routes
 Route::controller(SectionController::class)->group(function(){
     Route::get('sections','index')->middleware('auth')->name('sections.index');
-    Route::post('sections/create','store')->name('sections.create');
-    Route::get('sections/edit/{id}','edit')->name('sections.edit');
-    Route::post('sections/edit/{id}','update')->name('sections.update');
-    Route::get('sections/details/{id}','details')->name('sections.details');
-    Route::get('sections/delete/{id}','delete')->name('sections.delete');
+    Route::post('sections/create','store')->name('sections.create')->middleware('auth');;
+    Route::get('sections/edit/{id}','edit')->name('sections.edit')->middleware('auth');;
+    Route::post('sections/edit/{id}','update')->name('sections.update')->middleware('auth');;
+    Route::get('sections/details/{id}','details')->name('sections.details')->middleware('auth');;
+    Route::get('sections/delete/{id}','delete')->name('sections.delete')->middleware('auth');;
 });
 
 //Students Route
 Route::controller(StudentController::class)->group(function(){
-    Route::get('students','default')->name('students.default');
-    Route::get('students/index/{schoolId}','index')->name('students.index');
-    Route::get('students/{schoolId}/create','create')->name('students.create');
+    Route::get('students','default')->name('students.default')->middleware('auth');;
+    Route::get('students/index/{schoolId}','index')->name('students.index')->middleware('auth');;
+    Route::get('students/{schoolId}/create','create')->name('students.create')->middleware('auth');;
 });
 
 //LevelTypes Route
@@ -153,6 +155,8 @@ Route::controller(FacultyController::class)->group(function(){
     Route::get('faculties/edit/{id}','edit')->name('faculties.edit')->middleware('auth');
     Route::post('faculties/edit/{id}','update')->name('faculties.update')->middleware('auth');
     Route::get('faculties/delete/{id}','destroy')->name('faculties.destroy')->middleware('auth');
+    Route::get('faculties/downloadPDF','downloadPDF')->name('faculties.downloadpdf')->middleware('auth');
+    Route::post('faculties/updateImage/{id}','updateImage')->name('faculties.updateImage')->middleware('auth');
 });
 
 //ClassSubjects Routes
@@ -160,5 +164,11 @@ Route::controller(ClassSubjectController::class)->group(function(){
     Route::post('classsubjects/{classId}/create','create')->name('classsubjects.store')->middleware('auth');
     Route::get('classsubjects/edit/{classId}/{id}','edit')->name('classsubjects.edit')->middleware('auth');
     Route::put('classsubjects/edit/{classId}/{id}','update')->name('classsubjects.update')->middleware('auth');
+    Route::get('classsubjects/delete/{classId}/{id}','destroy')->name('classsubjects.destroy')->middleware('auth');
+});
+
+//ClassBills Routes
+Route::controller(ClassBillController::class)->group(function(){
+    Route::post('classbills/{classId}/create','create')->name('classbills.store')->middleware('auth');
 });
 

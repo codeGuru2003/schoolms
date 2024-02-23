@@ -78,10 +78,12 @@
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <div class="form-check mb-3">
-                                <input class="form-check-input" name="is_active" type="checkbox" id="is_active" value="1">
-                                <label class="form-check-label" for="is_active">
-                                Is Active
+                            <div class="form-check mt-4">
+                                <input class="form-check-input" type="checkbox" id="isactive" name="is_active"style="width:20px; height: 20px">
+                                <label class="form-check-label" for="isactive">
+                                    <span style="font-size: 20px">
+                                    Is Active
+                                    </span>
                                 </label>
                             </div>
                         </div>
@@ -155,8 +157,8 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group mb-2">
-                                <button class="btn btn-success">Save Changes</button>
-                                <a href="{{ route('faculties.index') }}" class="btn btn-primary">Back To List</a>
+                                <button class="btn btn-success">Save</button>
+                                <a href="{{ route('faculties.index') }}" class="btn btn-danger">Cancel</a>
                             </div>
                         </div>
                     </div>

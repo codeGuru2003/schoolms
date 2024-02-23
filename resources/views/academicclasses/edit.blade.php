@@ -30,6 +30,16 @@
                                 </select>
                             </div>
                             <div class="form-group mb-3">
+                                <label for="sponsor_id" class="form-label">Class Sponsor</label>
+                                <select name="sponsor_id" id="sponsor_id" required class="form-control">
+                                    <option value="0">Select Sponsor</option>
+                                    @foreach($faculties as $faculty)
+                                        <option value="{{ $faculty->id }}" {{ $academicClass->sponsor_id == $faculty->id ? 'selected' : '' }}>
+                                            {{ $faculty->firstname }} {{ $faculty->middlename }} {{ $faculty->lastname }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group mb-3">
                                 <label for="name" class="form-label">Name</label>
                                 <input type="text" name="name" value="{{ $academicClass->name }}" id="name" required class="form-control" />
                             </div>

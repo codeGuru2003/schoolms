@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\AcademicClass;
 use App\Models\ClassSubject;
+use App\Models\CurrencyType;
 use App\Models\Faculty;
 use App\Models\LevelType;
 use App\Models\Section;
@@ -16,13 +17,7 @@ class AcademicClassController extends Controller
 {
     public function index(){
 
-        $academicClasses = DB::table('academic_classes')
-            ->join('level_types', 'academic_classes.level_types_id','=','level_types.id')
-            ->join('sections','academic_classes.section_id','=','sections.id')
-            ->select('academic_classes.*','level_types.name as lname','sections.name as sname')
-            ->get();
-
-        //$academicClasses = AcademicClass::all();
+        $academicClasses = AcademicClass::with('faculty')->with('section')->with('leveltype')->get();
         return view('academicclasses.index',[
             'title' => 'List of Classes',
             'academicClasses' => $academicClasses,
@@ -32,8 +27,9 @@ class AcademicClassController extends Controller
     public function create(){
         $levelTypes = LevelType::pluck('name', 'id');
         $sections = Section::pluck('name','id');
+        $faculties = Faculty::all();
         return view('academicclasses.create',
-            compact('levelTypes','sections'),
+            compact('levelTypes','sections','faculties'),
             [
                 'title' => 'Create Academic Class',
             ]
@@ -44,13 +40,15 @@ class AcademicClassController extends Controller
         $this->validate($request,[
             'name' => 'required',
             'level_types_id' => 'required',
-            'section_id' => 'required'
+            'section_id' => 'required',
+            'sponsor_id' => 'required',
         ]);
 
         AcademicClass::create([
            'level_types_id' => $request->level_types_id,
            'section_id' => $request->section_id,
            'name' => $request->name,
+           'sponsor_id' => $request->sponsor_id,
            'created_by' => Auth::user()->name,
         ]);
 
@@ -61,8 +59,9 @@ class AcademicClassController extends Controller
         $academicClass = AcademicClass::find($id);
         $levelTypes = LevelType::pluck('name', 'id');
         $sections = Section::pluck('name','id');
+        $faculties = Faculty::all();
         return view('academicclasses.edit',
-            compact('levelTypes','sections'),
+            compact('levelTypes','sections','faculties'),
             [
                 'title' => 'Edit Academic Class',
                 'academicClass' => $academicClass,
@@ -84,13 +83,14 @@ class AcademicClassController extends Controller
         $academicClass = AcademicClass::find($id);
         $levelTypes = LevelType::pluck('name', 'id');
         $sections = Section::pluck('name','id');
+        $currencies = CurrencyType::pluck('code','id');
 
         $classSubjects = ClassSubject::where('academic_class_id', $id)->with('faculty')->with('subject')->get();
         $subjects = Subject::pluck('name','id');
-        $faculties = Faculty::all();
+        $faculties = Faculty::where('is_active', true)->get();
 
         return view('academicclasses.details',
-            compact('levelTypes','sections','subjects','faculties'),
+            compact('levelTypes','sections','subjects','faculties','currencies'),
             [
                 'title' => 'Academic Class Details',
                 'academicClass' => $academicClass,

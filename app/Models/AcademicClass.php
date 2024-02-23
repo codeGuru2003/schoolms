@@ -13,6 +13,19 @@ class AcademicClass extends Model
         'name',
         'level_types_id',
         'section_id',
+        'sponsor_id',
         'created_by',
     ];
+
+    public function section(){
+        return $this->belongsTo(Section::class, 'section_id');
+    }
+
+    public function leveltype(){
+        return $this->belongsTo(LevelType::class, 'level_types_id');
+    }
+
+    public function faculty(){
+        return $this->belongsTo(Faculty::class, 'sponsor_id');
+    }
 }

@@ -43,7 +43,7 @@
                             </div>
                             <div class="form-group">
                                 <button class="btn btn-success">Update</button>
-                                <a href="{{ route('terms.index') }}" class="btn btn-primary">Back to List</a>
+                                <a href="{{ route('terms.index') }}" class="btn btn-danger">Cancel</a>
                             </div>
                         </form>
                     </div>

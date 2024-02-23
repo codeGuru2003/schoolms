@@ -13,7 +13,7 @@
                             <i class="bi bi-pencil"> Add New Record</i>
                         </a>
                         <div class="table-responsive">
-                            <table class="table table-bordered table-striped datatable nowrap">
+                            <table class="table table-bordered table-striped nowrap" id="termsTable">
                                 <thead>
                                     <tr>
                                         <th>No.</th>
@@ -64,5 +64,12 @@
 
             return false;
         }
+    </script>
+    <script>
+        $(document).ready(function(){
+            $('#termsTable').DataTable({
+
+            })
+        })
     </script>
 @endsection

@@ -12,7 +12,7 @@
                     <div class="card-body p-3">
                         <a href="{{ route('years.create') }}" class="btn btn-primary"><i class="bi bi-pencil"> Add New Record</i></a>
                         <div class="table-responsive">
-                            <table class="table table-striped datatable">
+                            <table class="table table-striped nowrap" id="yearsTable">
                                 <thead>
                                     <tr>
                                         <th>No.</th>
@@ -63,5 +63,12 @@
 
             return false;
         }
+    </script>
+    <script>
+        $(document).ready(function(){
+            $('#yearsTable').DataTable({
+
+            })
+        })
     </script>
 @endsection

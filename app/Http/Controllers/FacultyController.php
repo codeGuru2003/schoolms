@@ -8,10 +8,13 @@ use App\Models\MaritalStatus;
 use App\Models\Position;
 use App\Models\Role;
 use App\Models\User;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Database\UniqueConstraintViolationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\ValidationException;
 
 class FacultyController extends Controller
@@ -113,6 +116,22 @@ class FacultyController extends Controller
 
     }
 
+    public function updateImage($id, Request $request){
+        try {
+            $faculty = Faculty::find($id);
+            $user = User::find($faculty->user_id);
+            Storage::disk('public')->delete($user->image);
+            $newPath = $request->file('image')->store('images','public');
+            $user->image = $newPath;
+            $user->save();
+
+            return Redirect::route('faculties.edit', ['id' => $id])->with('msg','Faculty Image updated successfully');
+
+        } catch (\Exception $ex) {
+            return back()->with('error', 'Error: '. $ex->getMessage());
+        }
+    }
+
     public function details($id){
         $faculty = Faculty::find($id);
         $positions = Position::pluck('name','id');
@@ -127,5 +146,11 @@ class FacultyController extends Controller
             'faculty' => $faculty,
             'user' => $user,
         ]);
+    }
+
+    public function downloadPDF(){
+        $data = Faculty::with('position')->with('gender')->with('maritalStatus')->with('user')->get();
+        $pdf = PDF::loadView('reports.faculty.info', $data);
+        return $pdf->download('pdf_file.pdf');
     }
 }

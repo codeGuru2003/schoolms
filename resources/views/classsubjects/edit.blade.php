@@ -5,7 +5,8 @@
             <div class="card">
                 <div class="card-header">{{ $title }}</div>
                 <div class="card-body p-4">
-                    <form id="createSubjectForm" action="{{ route('classsubjects.store', ['classId' => $classId, 'id' => $classSubject->id ]) }}" method="post">
+                    <form id="createSubjectForm" action="{{ route('classsubjects.update', ['classId' => $classId, 'id' => $classSubject->id ]) }}" method="POST">
+                        @method('PUT')
                         @csrf
                         <div class="form-group mb-3">
                             <label for="subject_id" class="form-label">Subject</label>
@@ -27,14 +28,16 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="form-check mb-3">
-                            <input class="form-check-input" type="checkbox" id="isactive" value="1">
-                            <label class="form-check-label" for="isactive">
-                              Is Active
+                        <div class="form-check mb-4">
+                            <input class="form-check-input" type="checkbox" id="isactive" name="is_active" {{ $classSubject->is_active ? 'checked' : '' }} style="width:20px; height: 20px">
+                            <label class="form-check-label {{ $classSubject->is_active ? 'text-success' : 'text-danger' }}" for="isactive">
+                              <span style="font-size: 20px">
+                                Is Active
+                              </span>
                             </label>
                         </div>
-                        <a href="{{ route('academicclasses.details', ['id' => $classId ]) }}" class="btn btn-primary">Back To Class Details</a>
-                        <button type="submit" class="btn btn-success">Update Class Subject</button>
+                        <button type="submit" class="btn btn-success">Update</button>
+                        <a href="{{ route('academicclasses.details', ['id' => $classId ]) }}" class="btn btn-danger">cancel</a>
                     </form>
                 </div>
             </div>

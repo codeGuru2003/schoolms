@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\GlobalSetting;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class GlobalSettingController extends Controller
 {
@@ -29,6 +31,21 @@ class GlobalSettingController extends Controller
         ]);
 
         $global_setting->save();
+        return redirect()->back()->with('msg', 'Configuration saved successfully.');
+    }
+
+    public function update($id, Request $request){
+        $globalsetting = GlobalSetting::find($id);
+
+        Storage::disk('public')->delete($globalsetting->system_logo);
+        $newPath = $request->file('system_logo')->store('images','public');
+        $globalsetting->system_logo = $newPath;
+        $globalsetting->system_name = $request->input('system_name');
+        $globalsetting->system_email = $request->input('system_email');
+        $globalsetting->contact = $request->input('contact');
+        $globalsetting->footer_text = $request->input('footer_text');
+        $globalsetting->created_by = Auth::user()->name;
+        $globalsetting->save();
         return redirect()->back()->with('msg', 'Configuration saved successfully.');
     }
 }
