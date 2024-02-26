@@ -60,8 +60,12 @@ Route::controller(RoleController::class)->group(function(){
 Route::controller(AccountController::class)->group(function(){
     Route::get('account/users', 'users')->name('account.users')->middleware('auth');
     Route::get('account/register', 'register')->name('account.register')->middleware('auth');
-    Route::get('account/users/{id}','edit')->name('account.edit')->middleware('auth');
-    Route::post('account/register','store')->name('account.store')->middleware('auth');;
+    Route::get('account/users/edit/{id}','edit')->name('account.edit')->middleware('auth');
+    Route::post('account/users/edit/{id}','update')->name('account.update')->middleware('auth');
+    Route::get('account/users/details/{id}','details')->name('account.details')->middleware('auth');
+    Route::get('account/users/deactivate/{id}','deactivate')->name('account.deactivate')->middleware('auth');
+    Route::get('account/users/delete/{id}','delete')->name('account.destroy')->middleware('auth');
+    Route::post('account/register','store')->name('account.store')->middleware('auth');
     Route::get('login', 'login')->name('login');
     Route::post('login','authenticate')->name('authenticate');
     Route::post('/change-password', 'changePassword')->name('change.password')->middleware('auth');;
@@ -78,18 +82,25 @@ Route::controller(HomeController::class)->group(function(){
 //Sections Routes
 Route::controller(SectionController::class)->group(function(){
     Route::get('sections','index')->middleware('auth')->name('sections.index');
-    Route::post('sections/create','store')->name('sections.create')->middleware('auth');;
-    Route::get('sections/edit/{id}','edit')->name('sections.edit')->middleware('auth');;
-    Route::post('sections/edit/{id}','update')->name('sections.update')->middleware('auth');;
-    Route::get('sections/details/{id}','details')->name('sections.details')->middleware('auth');;
-    Route::get('sections/delete/{id}','delete')->name('sections.delete')->middleware('auth');;
+    Route::post('sections/create','store')->name('sections.create')->middleware('auth');
+    Route::get('sections/edit/{id}','edit')->name('sections.edit')->middleware('auth');
+    Route::post('sections/edit/{id}','update')->name('sections.update')->middleware('auth');
+    Route::get('sections/details/{id}','details')->name('sections.details')->middleware('auth');
+    Route::get('sections/delete/{id}','delete')->name('sections.delete')->middleware('auth');
 });
 
 //Students Route
 Route::controller(StudentController::class)->group(function(){
-    Route::get('students','default')->name('students.default')->middleware('auth');;
-    Route::get('students/index/{schoolId}','index')->name('students.index')->middleware('auth');;
-    Route::get('students/{schoolId}/create','create')->name('students.create')->middleware('auth');;
+    Route::get('students','default')->name('students.default')->middleware('auth');
+    Route::get('students/index/{schoolId}','index')->name('students.index')->middleware('auth');
+    Route::get('students/create/{schoolId}','create')->name('students.create')->middleware('auth');
+    Route::post('students/create/{schoolId}','store')->name('students.store')->middleware('auth');
+    Route::get('students/details/{schoolId}/{id}','details')->name('students.details')->middleware('auth');
+    Route::get('students/edit/{schoolId}/{id}','edit')->name('students.edit')->middleware('auth');
+    Route::put('students/edit/{schoolId}/{id}','update')->name('students.update')->middleware('auth');
+    Route::get('students/delete/{schoolId}/{id}','destroy')->name('students.destroy')->middleware('auth');
+    Route::get('students/deactivate/{schoolId}/{id}','deactivate')->name('students.deactivate')->middleware('auth');
+    Route::post('students/updateImage/{schoolId}/{id}','updateImage')->name('students.updateImage')->middleware('auth');
 });
 
 //LevelTypes Route
@@ -114,7 +125,7 @@ Route::controller(AcademicClassController::class)->group(function(){
 });
 
 
-// //Years Route
+//Years Route
 Route::controller(YearController::class)->group(function(){
     Route::get('years','index')->name('years.index')->middleware('auth');
     Route::get('years/create','create')->name('years.create')->middleware('auth');
@@ -170,5 +181,9 @@ Route::controller(ClassSubjectController::class)->group(function(){
 //ClassBills Routes
 Route::controller(ClassBillController::class)->group(function(){
     Route::post('classbills/{classId}/create','create')->name('classbills.store')->middleware('auth');
+    Route::get('classbills/edit/{classId}/{id}','edit')->name('classbills.edit')->middleware('auth');
+    Route::put('classbills/edit/{classId}/{id}','update')->name('classbills.update')->middleware('auth');
+    Route::get('classbills/delete/{classId}/{id}','destroy')->name('classbills.destroy')->middleware('auth');
 });
+
 

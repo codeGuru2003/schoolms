@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Role;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class RoleController extends Controller
@@ -36,9 +37,11 @@ class RoleController extends Controller
 
     public function details($id){
         $role = Role::find($id);
+        $users = User::where('role_id',$id)->get();
         return view('roles.details',[
             'title' => 'Role Details',
-            'role' => $role
+            'role' => $role,
+            'users' => $users,
         ]);
     }
 }

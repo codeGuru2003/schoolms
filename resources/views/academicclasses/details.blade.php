@@ -109,32 +109,33 @@
                                 <tr>
                                     <th>No.</th>
                                     <th>Name</th>
-                                    <th>Currency</th>
                                     <th>Amount</th>
+                                    <th>Currency</th>
                                     <th>Status</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {{-- @foreach ($classSubjects as $classSubject)
+                                @foreach ($classBills as $classBill)
                                     <tr>
                                         <td>{{ $count }}</td>
-                                        <td>{{ $classSubject->subject->name }}</td>
-                                        <td>{{ $classSubject->faculty->firstname }} {{ $classSubject->faculty->middlename }} {{ $classSubject->faculty->lastname }}</td>
+                                        <td>{{ $classBill->name }}</td>
+                                        <td>{{ $classBill->amount }}</td>
+                                        <td>{{ $classBill->currency->code }}</td>
                                         <td>
-                                            <span class="badge {{ $classSubject->is_active ? 'bg-success' : 'bg-danger' }}">
-                                              {{ $classSubject->is_active ? 'Active' : 'Inactive' }}
+                                            <span class="badge {{ $classBill->is_active ? 'bg-success' : 'bg-danger' }}">
+                                              {{ $classBill->is_active ? 'Active' : 'Inactive' }}
                                             </span>
                                           </td>
                                         <td>
-                                            <a href="{{ route('classsubjects.edit', ['classId'=> $academicClass->id, 'id' => $classSubject->id ]) }}" class="btn btn-warning text-light"><i class="bi bi-pencil"></i></a>
-                                            <a href="{{ route('classsubjects.destroy', ['classId' => $academicClass->id, 'id' => $classSubject->id ]) }}" class="btn btn-danger " onclick="confirmDelete(event)"><i class="bi bi-trash"></i></a>
+                                            <a href="{{ route('classbills.edit', ['classId'=> $academicClass->id, 'id' => $classBill->id ]) }}" class="btn btn-warning text-light"><i class="bi bi-pencil"></i></a>
+                                            <a href="{{ route('classbills.destroy', ['classId' => $academicClass->id, 'id' => $classBill->id ]) }}" class="btn btn-danger " onclick="confirmDelete(event)"><i class="bi bi-trash"></i></a>
                                         </td>
                                     </tr>
                                     @php
                                         $count++;
                                     @endphp
-                                @endforeach --}}
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

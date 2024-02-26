@@ -11,13 +11,6 @@ use Illuminate\Support\Facades\Hash;
 
 class AccountController extends Controller
 {
-    //
-    // public function __construct()
-    // {
-    //     $this->middleware('guest')->except([
-    //         'logout','dashboard'
-    //     ]);
-    // }
 
     public function users(){
         $users = User::all();
@@ -29,7 +22,6 @@ class AccountController extends Controller
 
     public function register(){
         $roles = Role::pluck('name', 'id');
-
         return view('account.register',[
             'title' => 'Register User',
             'roles' => $roles,
@@ -47,11 +39,11 @@ class AccountController extends Controller
             'role_id' => $request->input('role_id'),
             'password' => Hash::make($request->password),
             'image' => $path,
+            'login_hint' => $request->password,
         ]);
 
         $user->save();
         //Auth::login($user); // Log in the user after registration
-
         return redirect('account/users')->with('msg', 'User created successfully');
     }
 
@@ -93,6 +85,30 @@ class AccountController extends Controller
             'title' => 'Edit User',
             'user' => $user,
         ]);
+    }
+
+    public function update($id, Request $request){
+
+    }
+
+    public function details($id){
+        $user = User::find($id);
+        return view('account.details',[
+            'title' => 'User Details',
+            'user' => $user,
+        ]);
+    }
+    public function deactivate($id){
+        $user = User::find($id);
+        $user->is_active = false;
+        $user->save();
+        return redirect('/account/users')->with('msg','User deactivated successfully');
+    }
+
+    public function delete($id){
+        $user = User::find($id);
+        $user->delete();
+        return redirect('/account/users')->with('msg','User deleted successfully');
     }
 
 }

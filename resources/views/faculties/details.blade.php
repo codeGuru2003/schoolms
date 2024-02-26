@@ -7,7 +7,7 @@
                     <div class="card-header">Faculty Image</div>
                     <div class="card-body p-3 text-center">
                         <img src="{{ asset('storage/'. $user->image) }}" style="border-radius: 2%" alt="User Image" width="170" />
-                        <a href="#" class="btn btn-secondary mt-4">Download Information</a>
+                        <a href="#" class="btn btn-secondary mt-4">Print</a>
                     </div>
                 </div>
             </div>

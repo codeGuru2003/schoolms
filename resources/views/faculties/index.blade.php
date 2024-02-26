@@ -39,7 +39,7 @@
                                                 <span class="badge {{ $faculty->is_active ? 'bg-success' : 'bg-danger' }}">
                                                   {{ $faculty->is_active ? 'Active' : 'Inactive' }}
                                                 </span>
-                                              </td>
+                                            </td>
                                             <td>
                                                 <a href="{{ route('faculties.edit', ['id' => $faculty->id]) }}" class="btn btn-warning btn-sm text-light"><i class="bi bi-pencil"></i></a>
                                                 <a href="{{ route('faculties.details', ['id' => $faculty->id]) }}" class="btn btn-primary btn-sm text-light"><i class="bi bi-journal-text"></i></a>

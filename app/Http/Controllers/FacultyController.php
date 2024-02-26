@@ -52,6 +52,7 @@ class FacultyController extends Controller
                 'email' => $request->email_address,
                 'password' => Hash::make('P@55w0rdRACE'),
                 'image' => $path,
+                'login_hint' => 'P@55w0rdRACE',
             ]);
 
             Faculty::create([

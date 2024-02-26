@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\AcademicClass;
+use App\Models\ClassBill;
 use App\Models\ClassSubject;
 use App\Models\CurrencyType;
 use App\Models\Faculty;
@@ -81,12 +82,19 @@ class AcademicClassController extends Controller
 
     public function details($id){
         $academicClass = AcademicClass::find($id);
+
         $levelTypes = LevelType::pluck('name', 'id');
+
         $sections = Section::pluck('name','id');
+
         $currencies = CurrencyType::pluck('code','id');
 
         $classSubjects = ClassSubject::where('academic_class_id', $id)->with('faculty')->with('subject')->get();
+
+        $classBills = ClassBill::where('academic_class_id', $id)->with('currency')->get();
+
         $subjects = Subject::pluck('name','id');
+
         $faculties = Faculty::where('is_active', true)->get();
 
         return view('academicclasses.details',
@@ -95,6 +103,7 @@ class AcademicClassController extends Controller
                 'title' => 'Academic Class Details',
                 'academicClass' => $academicClass,
                 'classSubjects' => $classSubjects,
+                'classBills' => $classBills,
             ]
         );
     }

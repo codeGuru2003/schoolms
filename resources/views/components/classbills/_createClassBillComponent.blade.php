@@ -18,8 +18,8 @@
         </select>
     </div>
     <div class="form-check mb-3">
-        <input class="form-check-input" type="checkbox" id="isactive" name="is_active" style="width:20px; height: 20px">
-        <label class="form-check-label " for="isactive">
+        <input class="form-check-input" type="checkbox" id="is_active" name="is_active" style="width:20px; height: 20px">
+        <label class="form-check-label " for="is_active">
             <span style="font-size: 20px">
             Is Active
             </span>
